@@ -3,15 +3,16 @@ package main
 import "fmt"
 
 func main() {
-	for i := range generate(25) {
-		fmt.Println(factorial(uint64(i)))
+	numbers := generate(25)
+	for i := range factorial(numbers) {
+		fmt.Println(i)
 	}
 }
 
-func generate(n int) chan int {
-	channel := make(chan int)
+func generate(n uint64) chan uint64 {
+	channel := make(chan uint64)
 	go func() {
-		for i := 3; i <= n; i++ {
+		for i := uint64(3); i <= n; i++ {
 			channel <- i
 		}
 		close(channel)
@@ -19,9 +20,17 @@ func generate(n int) chan int {
 	return channel
 }
 
-func factorial(n uint64) uint64 {
-	if n == 0 {
-		return 1
-	}
-	return n * factorial(n-1)
+func factorial(in chan uint64) chan uint64 {
+	out := make(chan uint64)
+	go func() {
+		for i := range in {
+			total := uint64(1)
+			for z := i; z > 0; z-- {
+				total *= z
+			}
+			out <- total
+		}
+		close(out)
+	}()
+	return out
 }
