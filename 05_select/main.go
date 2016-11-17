@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"math/rand"
-	"sync/atomic"
 	"time"
 )
 
@@ -13,34 +12,28 @@ func main() {
 	chan2 := make(chan int)
 	chan3 := make(chan int)
 
-	var counter int32
-	counter = 3
-
 	go func() {
 		for i := 0; i < 20; i++ {
+			time.Sleep(time.Duration(rand.Intn(5)) * time.Millisecond)
 			chan1 <- i
-			time.Sleep(time.Duration(rand.Intn(5)) * time.Millisecond)
 		}
-		atomic.AddInt32(&counter, -1)
 	}()
 
 	go func() {
 		for i := 0; i < 20; i++ {
+			time.Sleep(time.Duration(rand.Intn(5)) * time.Millisecond)
 			chan2 <- i
-			time.Sleep(time.Duration(rand.Intn(5)) * time.Millisecond)
 		}
-		atomic.AddInt32(&counter, -1)
 	}()
 
 	go func() {
 		for i := 0; i < 20; i++ {
-			chan3 <- i
 			time.Sleep(time.Duration(rand.Intn(5)) * time.Millisecond)
+			chan3 <- i
 		}
-		atomic.AddInt32(&counter, -1)
 	}()
 
-	for counter != 0 {
+	for {
 
 		select {
 
