@@ -9,8 +9,6 @@ import (
 
 var wg sync.WaitGroup
 
-var mutex sync.Mutex
-
 var count int
 
 func main() {
@@ -23,10 +21,8 @@ func main() {
 func counter(animal string) {
 	for i := 0; i < 20; i++ {
 		time.Sleep(time.Duration(rand.Intn(5)) * time.Millisecond)
-		mutex.Lock()
 		count++
 		fmt.Println(animal, ":", count)
-		mutex.Unlock()
 	}
 	wg.Done()
 }

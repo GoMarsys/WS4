@@ -15,10 +15,8 @@ func init() {
 var wg sync.WaitGroup
 
 func main() {
-	wg.Add(2)
 	go counter("dog")
 	go counter("cat")
-	wg.Wait()
 }
 
 func counter(animal string) {
@@ -26,7 +24,6 @@ func counter(animal string) {
 		fmt.Println(animal, ":", i)
 		time.Sleep(time.Duration(rand.Intn(3)) * time.Millisecond)
 	}
-	wg.Done()
 }
 
 // go routine definition
