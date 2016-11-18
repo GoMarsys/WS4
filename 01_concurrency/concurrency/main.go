@@ -26,6 +26,6 @@ func counter(animal string) {
 	}
 }
 
-// go routine definition
-// context switch between running go routines
-//
+// run this code (go run main.go)
+// Nothing happened..
+// Could you determine why? Let's fix it!

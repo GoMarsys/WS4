@@ -51,3 +51,5 @@ func main() {
 	}
 
 }
+
+// CHALLENGE: Collect all the messages from different channels into one channel and print the messages via this new channel.

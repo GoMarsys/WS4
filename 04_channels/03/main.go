@@ -23,5 +23,3 @@ func main() {
 	}
 
 }
-
-// factorial challenge next!
